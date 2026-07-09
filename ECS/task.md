@@ -20,6 +20,13 @@ Example: Access Amazon S3 or DynamoDB.
 - Volumes: EFS, Ephemeral storage, Other supported volume types
 - Logging: Configure log drivers (for example, CloudWatch Logs).
 
+### Service/Run Task
+- Revision on the task to run
+- Decides the networking VPC, subnet of where this task runs.
+- Compute configuration
+- Security Group
+- Volume, Task overrides
+- Container ENV and cmd overrides
 
 Cluster
     │
@@ -29,12 +36,13 @@ Task Definition
     ├── Defines the application
     ├── CPU, Memory
     ├── Volumes
-    ├── Networking
     ├── Containers
     │
 Service
     ├── Chooses how to run the task
     ├── Launch Type or Capacity Provider
+    |-- Networking
     ├── Desired Count
     ├── Load Balancer
     └── Auto Scaling
+

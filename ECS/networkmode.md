@@ -62,7 +62,7 @@ Container : 172.17.0.2:8080
 
 ### Awsvpc:
 
-Aws provides each tasks its own CNI, private IP and own security group. Each task will get its own IP no port conflicts.
+AWS provides each task with its own ENI (Elastic Network Interface), private IP address, and security groups. The Amazon ECS CNI plugin configures this networking. Since each task has its own IP address, multiple tasks can listen on the same port (for example, 8080) without port conflicts.
 
 Task 1
 IP : 10.0.1.15:8080
