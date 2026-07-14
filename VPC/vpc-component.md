@@ -56,6 +56,14 @@ Regional -> Single NAT used for internet access from private subnet of multipel 
 Zonal -> Separate NAT created fron each AZ of a region.
 Add NAT as Target for interent traffic in private route table. This will automatically allocate the EIP for this NAT.
 
+Each private subnet should use the NAT Gateway in its own Availability Zone.
+
+Why?
+
+Lower latency
+Lower cross-AZ data transfer cost
+Better availability if one AZ has proble
+
 **Automatic vs mannual EIP allocation**
 A Public NAT Gateway requires an Elastic IP when it is created.
 You can:
