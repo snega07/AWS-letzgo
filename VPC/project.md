@@ -22,6 +22,14 @@ Copy private key from local to Bastian server. Then SSH to EC2 instance running 
 **Note:**
 Instead of copying the private key to the Bastion Host, a better practice is to use SSH agent forwarding or AWS Systems Manager Session Manager, which avoids storing private keys on the Bastion instance.
 
+**Alternative for Bastian**
+
+AWS Systems Manager Session Manager: Need to install SSM agent in EC2, IAM role, NAT or VPC enpoint for SSM service. No public IP
+
+EC2 Instance Connect Endpoint (EICE): EC2 Instance Connect Endpoint, Security Groups, IAM permissions. No public IP
+
+Secure VPN: Access multiple resources, Suitable for enterprise environments
+
 3) EC2 Autoscaling:
 
 The **Launch Template** defines how new EC2 instances are created.
