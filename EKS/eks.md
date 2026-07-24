@@ -124,6 +124,10 @@ OIDC (OpenID Connect) is an authentication protocol built on OAuth 2.0. In EKS, 
 
 In EKS, the EKS cluster itself acts as the OIDC issuer/provider for Kubernetes ServiceAccounts.
 
+❌ OIDC does not associate the IAM role.
+✅ IRSA associates the IAM Role ↔ Kubernetes ServiceAccount.
+✅ OIDC provides the trust mechanism so AWS can verify the ServiceAccount token before allowing the role assumption.
+
 ``` hcl
 eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
 ```
