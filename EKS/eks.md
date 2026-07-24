@@ -63,11 +63,11 @@ eksctl create cluster --name demo-cluster --region us-east-1 --fargate
 
 ### Create Fargate profile and namespace
 
-In EKS with Fargate launch mode we don't have control over the worke node and where to deploy based on labels, selector or taint toleration. 
+In EKS with Fargate launch mode we don't have control over the worker node and where to deploy based on labels, selector or taint toleration. 
 
 Here we need to map fargate profile with the namespace or labels. A Fargate profile defines which pods are eligible to run on Fargate by matching their namespace (and optionally labels). Pods in matching namespaces are scheduled onto Fargate.
 
-Namespace is mandatory.
+Namespace is mandatory. Labels is optional.
 
 **Flow**
 
@@ -187,6 +187,8 @@ Kubernetes provides the Ingress API but does not include an Ingress Controller b
 
 Available options:
 
+If you use the AWS Load Balancer Controller, traffic goes through an ALB. If you use NGINX or HAProxy Ingress Controllers, AWS typically provisions an NLB (via a LoadBalancer Service), and the NGINX/HAProxy pods perform the ingress routing
+
 nginx
 ALB
 F5
@@ -199,6 +201,7 @@ When the AWS Load Balancer Controller detects an Ingress resource, it creates an
 Each Ingress resource creates it own ALB. To make multiple ingress use same ALB.
 
 ``` hcl
+alb.ingress.kubernetes.io/group.name is a user-defined logical group name. The AWS Load Balancer Controller groups all Ingress resources that specify the same group name and creates or reuses a single ALB for them. The group name doesn't have to exist beforehand—it's simply a common identifier used by the controller.
 you must configure Ingress Groups using annotations such as:
 
 alb.ingress.kubernetes.io/group.name: my-app
