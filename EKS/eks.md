@@ -122,6 +122,19 @@ Associating an IAM OIDC(OpenID connect) provider allows AWS IAM to trust Kuberne
 
 OIDC (OpenID Connect) is an authentication protocol built on OAuth 2.0. In EKS, it enables AWS IAM to trust and verify Kubernetes ServiceAccount tokens, allowing pods to securely assume IAM roles through IAM Roles for Service Accounts (IRSA) without using long-lived AWS access keys.
 
+OIDC
+-----
+- The EKS cluster exposes an OIDC issuer (identity provider) for Kubernetes ServiceAccount tokens.
+- The Kubernetes API server issues ServiceAccount JWT tokens.
+- AWS IAM trusts this OIDC provider after you associate it with the cluster.
+
+IRSA (IAM Roles for Service Accounts)
+-------------------------------------
+- IRSA is an AWS-specific feature that associates an IAM Role with a Kubernetes ServiceAccount.
+- When a pod uses that ServiceAccount, it presents its ServiceAccount token to AWS STS.
+- AWS STS verifies that the token was issued by the trusted EKS OIDC provider.
+- If the token is valid and the IAM Role trusts that ServiceAccount, STS allows the pod to assume the IAM Role and returns temporary AWS credentials.
+
 In EKS, the EKS cluster itself acts as the OIDC issuer/provider for Kubernetes ServiceAccounts.
 
 ❌ OIDC does not associate the IAM role.
