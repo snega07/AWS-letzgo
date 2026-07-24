@@ -135,6 +135,10 @@ IRSA (IAM Roles for Service Accounts)
 - AWS STS verifies that the token was issued by the trusted EKS OIDC provider.
 - If the token is valid and the IAM Role trusts that ServiceAccount, STS allows the pod to assume the IAM Role and returns temporary AWS credentials.
 
+**AWS STS** (Security Token Service) is an AWS service that issues temporary security credentials to users, applications, or AWS services.
+
+Instead of storing a long-term Access Key and Secret Key, STS gives you temporary credentials that expire automatically.
+
 In EKS, the EKS cluster itself acts as the OIDC issuer/provider for Kubernetes ServiceAccounts.
 
 ❌ OIDC does not associate the IAM role.
