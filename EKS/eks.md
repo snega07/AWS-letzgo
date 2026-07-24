@@ -118,8 +118,11 @@ If no namespace mentioned in deployment yaml. Then deployment will be created in
 
 ### Enable OIDC connector and Iam roles for SA(IRSA)
 
-Associating an IAM OIDC provider allows AWS IAM to trust Kubernetes ServiceAccount tokens issued by the EKS cluster. This enables IAM Roles for Service Accounts (IRSA), where a pod using a specific ServiceAccount can assume an IAM role and obtain temporary AWS credentials.
+Associating an IAM OIDC(OpenID connect) provider allows AWS IAM to trust Kubernetes ServiceAccount tokens issued by the EKS cluster. This enables IAM Roles for Service Accounts (IRSA), where a pod using a specific ServiceAccount can assume an IAM role and obtain temporary AWS credentials.
 
+OIDC (OpenID Connect) is an authentication protocol built on OAuth 2.0. In EKS, it enables AWS IAM to trust and verify Kubernetes ServiceAccount tokens, allowing pods to securely assume IAM roles through IAM Roles for Service Accounts (IRSA) without using long-lived AWS access keys.
+
+In EKS, the EKS cluster itself acts as the OIDC issuer/provider for Kubernetes ServiceAccounts.
 
 ``` hcl
 eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
