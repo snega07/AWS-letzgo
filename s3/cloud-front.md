@@ -75,11 +75,24 @@ Overall, CloudFront improves performance, reduces latency, decreases the load on
 Cloudfront helps to serve contents from its cache near end user edge location. when our actual backend lives in a specific region but we have user across the globe. To reduce the latency on fetching contents we can keep cloudfront before our orgin like S3 bucket, ALB or API gateway. It will reduce cost by reducing the number cross region request by reducing backend interaction for each request.
 
 
+### Features
+
+Reduces latency by serving content from nearby edge locations.
+✅ Reduces backend load because many requests are served from the cache.
+✅ Lowers data transfer costs by reducing repeated requests to the origin.
+✅ Improves scalability during traffic spikes.
+✅ Keeps S3 buckets private when using OAC.
+✅ Supports HTTPS with ACM certificates.
+✅ Integrates with AWS WAF and AWS Shield for security.
+✅ Supports path-based routing to multiple origins.
+✅ Supports compression (Gzip/Brotli) for faster content delivery.
+✅ Provides geographic restrictions and signed URLs/cookies for controlled access.
+
 
 
 When we host our static website in S3 and have users across the globe
 We must allow public access to our S3
-Cost of getting objects from single region where s3 hosted is costlier when we have users across allt he region the world.
+Cost of getting objects from single region where s3 hosted is costlier when we have users across all the region the world.
 
 Cloud front will helps to cache it for certain TTL(time to live) in the edge location of user where multiple user can fetch the files from th cache and AWS don't need to inetract with S3 everytime.
 
