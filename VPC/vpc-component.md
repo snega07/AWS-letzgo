@@ -37,8 +37,20 @@ A subnet is a smaller network created within a VPC by dividing the VPC CIDR rang
 
 ### Private Subnet:
 
-Private subnet is secured within the VPC. It is not exposed to internet directly. But, internet access can be done through NAT gateway present in public subnet. Where internal Ips are masked.
-A subnet can be associated with route table at a time.
+A private subnet is a subnet whose instances cannot be accessed directly from the internet because its route table does not contain a route to an Internet Gateway (IGW).
+
+If instances in a private subnet need outbound internet access (for example, to download packages or updates), the traffic is routed through a NAT Gateway (or NAT Instance) located in a public subnet. The NAT Gateway translates the private IP addresses to its public IP, allowing outbound internet access while preventing unsolicited inbound connections. Where internal Ips are masked.
+
+A subnet can be associated with only one route table at a time, although a route table can be associated with multiple subnets.
+A subnet can be associated with one route table at a time.
+
+**For a private subnet:**
+
+Map Public IP on Launch = false (default)
+Instances are assigned private IP addresses only.
+
+Instances can access the internet only through a NAT Gateway if the route table contains:
+0.0.0.0/0 → NAT Gateway
 
 ### Public Subnet:
 

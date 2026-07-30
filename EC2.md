@@ -65,6 +65,34 @@ EC2 (CPU + RAM)
 
 This will keep on changing; it is used to access the application running in our VM from the outside world. For fixed IP use elastic IP.
 
+**Public IP Assignment**
+
+By default, an EC2 instance inherits the subnet's Auto-assign Public IPv4 Address setting.
+
+If the subnet has Auto-assign Public IP = Enabled, new instances launched into that subnet receive a public IP by default.
+You can override the subnet setting while launching the instance by enabling or disabling Associate Public IP Address for that specific instance.
+
+**Can an EC2 instance have a public IP in a private subnet?**
+
+Technically, you can associate a public or Elastic IP with an EC2 instance. However, if the subnet's route table does not have a route to an Internet Gateway, the instance still cannot communicate with the internet. Therefore, a public IP alone does not make an instance publicly accessible; the subnet must also be a public subnet with an IGW route.
+
+**Why is it still considered a best practice to avoid public IPs?**
+
+If doesn't have a public IP and is in a private subnet, then even if someone mistakenly opens the security group, the instance still isn't directly reachable from the internet because there's no public address and no internet-facing path to it.
+
+**How to access resource from private subnet**
+
+If users on the internet need to access an application running in a private subnet, a public-facing load balancer is the standard solution.
+
+Typical architecture
+Internet
+    │
+Internet Gateway
+    │
+Public ALB
+    │
+Private EC2 / ECS / EKS Pods
+
 **Security Group**
 
 We can configure inbound and outbound traffic.
