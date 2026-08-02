@@ -1,0 +1,109 @@
+version: 0.2
+
+run-as: Linux-user-name
+
+env:
+  shell: bash
+  variables:
+    DOCKER_URL: "docker.io/snega07/simple-python-app"
+  parameter-store:
+    DOCKER_USERNAME: "/cicd-sample/codebuild/dockerhub-username"
+    DOCKER_PASSWORD: "/cicd-sample/codebuild/dockerhub-password"
+  # exported-variables:
+  #   - variable
+  #   - variable
+  # secrets-manager:
+  #   key: secret-id:json-key:version-stage:version-id
+  # git-credential-helper: no | yes
+
+# proxy:
+#   upload-artifacts: no | yes
+#   logs: no | yes
+
+# batch:
+#   fast-fail: false | true
+  # build-list:
+  # build-matrix:
+  # build-graph:
+  # build-fanout:
+        
+phases:
+  install:
+    run-as: ubuntu
+    on-failure: RETRY
+    runtime-versions:
+      python: 3.14.6
+    commands:
+      - py_version = `python --version`
+    finally:
+      - echo "Install phase completed with Python version: $py_version"
+    
+  pre_build:
+    run-as: ubuntu
+    on-failure: RETRY
+    commands:
+      - cd simple-python-app
+      - pip install requirements.txt
+    finally:
+      - echo "Pre-build phase completed."
+    
+  build:
+    run-as: ubuntu
+    on-failure: RETRY
+    commands:
+      - pwd
+      - docker build -t snega07/simple-python-app .
+      - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_URL
+      - docker push $DOCKER_URL
+    finally:
+      - echo "Build phase completed."
+    
+  post_build:
+    run-as: ubuntu
+    on-failure: RETRY
+    commands:
+      - docker image ls
+    finally:
+      - echo "Post-build phase completed."
+    
+# reports:
+#   report-group-name-or-arn:
+#     files:
+#       - location
+#       - location
+#     base-directory: location
+#     discard-paths: no | yes
+#     file-format: report-format
+# artifacts:
+#   files:
+#     - location
+#     - location
+#   name: artifact-name
+#   discard-paths: no | yes
+#   base-directory: location
+#   exclude-paths: excluded paths
+#   enable-symlinks: no | yes
+#   s3-prefix: prefix
+#   secondary-artifacts:
+#     artifactIdentifier:
+#       files:
+#         - location
+#         - location
+#       name: secondary-artifact-name
+#       discard-paths: no | yes
+#       base-directory: location
+#     artifactIdentifier:
+#       files:
+#         - location
+#         - location
+#       discard-paths: no | yes
+#       base-directory: location
+# cache:
+#   key: key
+#   fallback-keys:
+#     - fallback-key
+#     - fallback-key
+#   action: restore | save
+#   paths:
+#     - path
+#     - path

@@ -9,7 +9,25 @@ CloudFront sits in front of an origin, such as an Amazon S3 bucket, an Applicati
 ![alt text](image.png)
 
 * **Origin** – The backend source from which CloudFront fetches content (for example, S3, ALB, or API Gateway).
-* **Origin Access Control (OAC)** – Used with S3 origins to allow CloudFront to securely access a private S3 bucket using SigV4 signed requests. We don't want to publicly expose the S3 to end user.
+
+| Origin                       | Supported | OAC Applicable? |
+| ---------------------------- | --------- | --------------- |
+| Amazon S3                    | ✅         | ✅ Yes        |
+| ALB                          | ✅         | ❌ No         |
+| NLB                          | ✅         | ❌ No         |
+| EC2                          | ✅         | ❌ No         |
+| API Gateway                  | ✅         | ❌ No         |
+| Lambda Function URL          | ✅         | ❌ No         |
+| MediaPackage / MediaStore    | ✅         | ❌ No         |
+| Any public HTTP/HTTPS server | ✅         | ❌ No         |
+
+
+* **Origin Access Control (OAC)** – Used with S3 origins to allow CloudFront to securely access a private S3 bucket using SigV4 signed requests. We don't want to publicly expose the S3 to end user. 
+
+OAC is applicable only for Amazon S3 origins.The S3 bucket policy allows access only from the CloudFront distribution.
+
+
+
 * **Origin ID** - Unique identifier of the origin, used when we create cacahe behavior for multiple origins.
 * **Default Cache Behavior** – Defines how requests are handled by default, including the target origin, allowed HTTP methods, cache TTLs, viewer protocol policy, and other caching settings.
 
