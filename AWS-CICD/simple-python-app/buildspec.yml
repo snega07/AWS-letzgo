@@ -28,7 +28,7 @@ env:
         
 phases:
   install:
-    run-as: ubuntu
+    # run-as: ubuntu
     # on-failure: RETRY
     runtime-versions:
       python: 3.12
@@ -41,7 +41,7 @@ phases:
     #   - echo "Install phase completed with Python version: $py_version"
     
   pre_build:
-    run-as: ubuntu
+    # run-as: ubuntu
     # on-failure: RETRY 
     commands:
       - cd AWS-CICD/simple-python-app
