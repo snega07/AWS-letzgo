@@ -57,7 +57,7 @@ phases:
     commands:
       - pwd
       - docker build -t $DOCKER_URL .
-      - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_URL
+      - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io
       - docker push $DOCKER_URL
   #   finally:
   #     - echo "Build phase completed."
