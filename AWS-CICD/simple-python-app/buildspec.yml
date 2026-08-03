@@ -33,7 +33,7 @@ phases:
     runtime-versions:
       python: 3.12
     commands:
-      - py_version = `python --version`
+      - py_version=`python --version`
       - python --version
       - python3 --version
       - which python
