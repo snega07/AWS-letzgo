@@ -1,6 +1,5 @@
 version: 0.2
 
-run-as: Linux-user-name
 
 env:
   shell: bash
@@ -30,41 +29,51 @@ env:
 phases:
   install:
     run-as: ubuntu
-    on-failure: RETRY
+    # on-failure: RETRY
     runtime-versions:
-      python: 3.14.6
+      python: 3.12
     commands:
       - py_version = `python --version`
-    finally:
-      - echo "Install phase completed with Python version: $py_version"
+      - python --version
+      - python3 --version
+      - which python
+      - which python3
+      - which pip
+      - which pip3
+      - python -m pip --version
+      - python3 -m pip --version
+    # finally:
+    #   - echo "Install phase completed with Python version: $py_version"
     
   pre_build:
     run-as: ubuntu
-    on-failure: RETRY
+    # on-failure: RETRY
     commands:
-      - cd simple-python-app
-      - pip install requirements.txt
-    finally:
-      - echo "Pre-build phase completed."
-    
-  build:
-    run-as: ubuntu
-    on-failure: RETRY
-    commands:
+      - cd AWS-CICD/simple-python-app
+      - ls -l
       - pwd
-      - docker build -t snega07/simple-python-app .
-      - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_URL
-      - docker push $DOCKER_URL
-    finally:
-      - echo "Build phase completed."
+      - python3 -m pip install -r requirements.txt
+    # finally:
+    #   - echo "Pre-build phase completed."
     
-  post_build:
-    run-as: ubuntu
-    on-failure: RETRY
-    commands:
-      - docker image ls
-    finally:
-      - echo "Post-build phase completed."
+  # build:
+  #   run-as: ubuntu
+  #   on-failure: RETRY
+  #   commands:
+  #     - pwd
+  #     - docker build -t snega07/simple-python-app .
+  #     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_URL
+  #     - docker push $DOCKER_URL
+  #   finally:
+  #     - echo "Build phase completed."
+    
+  # post_build:
+  #   run-as: ubuntu
+  #   on-failure: RETRY
+  #   commands:
+  #     - docker image ls
+  #   finally:
+  #     - echo "Post-build phase completed."
     
 # reports:
 #   report-group-name-or-arn:
