@@ -51,22 +51,22 @@ phases:
     # finally:
     #   - echo "Pre-build phase completed."
     
-  # build:
+  build:
   #   run-as: ubuntu
   #   on-failure: RETRY
-  #   commands:
-  #     - pwd
-  #     - docker build -t snega07/simple-python-app .
-  #     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_URL
-  #     - docker push $DOCKER_URL
+    commands:
+      - pwd
+      - docker build -t $DOCKER_URL .
+      - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_URL
+      - docker push $DOCKER_URL
   #   finally:
   #     - echo "Build phase completed."
     
-  # post_build:
-  #   run-as: ubuntu
-  #   on-failure: RETRY
-  #   commands:
-  #     - docker image ls
+  post_build:
+    # run-as: ubuntu
+    # on-failure: RETRY
+    commands:
+      - docker image ls
   #   finally:
   #     - echo "Post-build phase completed."
     
