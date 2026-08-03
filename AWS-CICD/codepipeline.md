@@ -169,7 +169,11 @@ Easier to modify or replace individual stages.
 Better integration with deployment services like CodeDeploy.
 
 
+**Note:**
 
+Few projects with different build requirements: Keep buildspec.yml in each repository.
+Many projects with identical build steps: Use a shared buildspec (via BuildSpec override) or inline buildspec if the logic is simple.
+Enterprise environments: A shared, version-controlled buildspec is usually preferred over inline YAML because it is easier to audit, review, and maintain.
 
 
 
