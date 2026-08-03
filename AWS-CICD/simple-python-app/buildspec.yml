@@ -34,16 +34,11 @@ phases:
       python: 3.12
     commands:
       - py_version=`python --version`
-      - python --version
-      - python3 --version
-      - which python
-      - which python3
-      - python -m pip --version || true
-      - python -m ensurepip --default-pip || true
-      - python -m pip --version
+      - apt-get update
+      - apt-get install -y python3-pip
       - python3 -m pip --version
-    # finally:
-    #   - echo "Install phase completed with Python version: $py_version"
+    finally:
+      - echo "Install phase completed with Python version: $py_version"
     
   pre_build:
     run-as: ubuntu
